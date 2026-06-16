@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 const navLinks = [
   { label: 'Tentang', href: '#about' },
@@ -60,15 +61,14 @@ export default function Navbar() {
           onClick={(e) => { e.preventDefault(); handleLinkClick('#hero') }}
           className="flex items-center gap-2.5 no-underline"
         >
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #5ffbd6, #38debb)',
-              color: '#08132a',
-              fontFamily: 'Montserrat, sans-serif',
-            }}
-          >
-            N
+          <div className="flex items-center justify-center rounded-full bg-white p-1.5 shadow-[0_0_12px_rgba(95,251,214,0.15)]">
+            <Image
+              src="/NusaLogic-Logo.png"
+              alt="NusaLogic Logo"
+              width={34}
+              height={34}
+              className="object-contain rounded-full"
+            />
           </div>
           <span
             className="text-lg tracking-tight"
