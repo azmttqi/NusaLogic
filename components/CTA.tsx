@@ -9,21 +9,51 @@ function validateEmail(email: string) {
 
 export default function CTA() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState('')
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.3 })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validateEmail(email)) {
       setStatus('error')
       setMessage('Masukkan alamat email yang valid.')
       return
     }
-    setStatus('success')
-    setMessage(`Terima kasih! Kami akan menghubungi ${email} dalam 1×24 jam.`)
-    setEmail('')
+
+    setStatus('loading')
+    setMessage('')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'f0ccec04-795b-4554-83de-d625a1b6613e',
+          email: email,
+          subject: 'Lead Baru dari Website Nusalogic!',
+          message: `Halo Tim Nusalogic,\n\nAda calon klien baru yang meninggalkan email dan tertarik untuk dikirimkan brosur/penawaran.\n\nEmail Klien: ${email}\n\nMohon segera dihubungi dalam 1x24 jam.`,
+          from_name: 'Nusalogic Website',
+        }),
+      })
+
+      const result = await response.json()
+      if (result.success) {
+        setStatus('success')
+        setMessage(`Terima kasih! Kami akan menghubungi ${email} dalam 1×24 jam.`)
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage('Gagal mengirim. Silakan coba lagi atau hubungi via WA.')
+      }
+    } catch (error) {
+      setStatus('error')
+      setMessage('Terjadi kesalahan jaringan. Coba lagi nanti.')
+    }
   }
 
   return (
@@ -171,9 +201,17 @@ export default function CTA() {
                     e.target.style.boxShadow = 'none'
                   }}
                 />
-                <button id="cta-submit-btn" type="submit" className="btn-primary justify-center">
-                  <span className="material-symbols-outlined text-base">send</span>
-                  Kirim & Minta Brosur
+                <button 
+                  id="cta-submit-btn" 
+                  type="submit" 
+                  disabled={status === 'loading'}
+                  className="btn-primary justify-center transition-all"
+                  style={{ opacity: status === 'loading' ? 0.7 : 1, cursor: status === 'loading' ? 'wait' : 'pointer' }}
+                >
+                  <span className="material-symbols-outlined text-base">
+                    {status === 'loading' ? 'hourglass_empty' : 'send'}
+                  </span>
+                  {status === 'loading' ? 'Mengirim...' : 'Kirim & Minta Brosur'}
                 </button>
                 {status === 'error' && (
                   <p className="text-xs" style={{ color: 'rgba(255,100,100,0.9)' }}>
