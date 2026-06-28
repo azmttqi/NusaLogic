@@ -43,7 +43,7 @@ export default async function PortfoliosAdminPage() {
               <div>
                 <label className="block text-sm font-medium mb-1 text-zinc-400">Image URL (Optional)</label>
                 <input
-                  type="url"
+                  type="text"
                   name="imageUrl"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-white"
                   placeholder="https://example.com/image.jpg"
@@ -53,7 +53,7 @@ export default async function PortfoliosAdminPage() {
               <div>
                 <label className="block text-sm font-medium mb-1 text-zinc-400">Project Link (Optional)</label>
                 <input
-                  type="url"
+                  type="text"
                   name="link"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-white"
                   placeholder="https://example.com"

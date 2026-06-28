@@ -65,18 +65,18 @@ export default async function TeamAdminPage({
               <div>
                 <label className="block text-sm font-medium mb-1 text-zinc-400">Photo URL</label>
                 <input
-                  type="url"
+                  type="text"
                   name="imageUrl"
                   defaultValue={editMember?.imageUrl || ""}
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-white"
-                  placeholder="https://example.com/photo.jpg"
+                  placeholder="e.g. /team/photo.jpg or https://..."
                 />
               </div>
               
               <div>
                 <label className="block text-sm font-medium mb-1 text-zinc-400">LinkedIn URL (Optional)</label>
                 <input
-                  type="url"
+                  type="text"
                   name="linkedinUrl"
                   defaultValue={editMember?.linkedinUrl || ""}
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-white"
@@ -86,7 +86,7 @@ export default async function TeamAdminPage({
               <div>
                 <label className="block text-sm font-medium mb-1 text-zinc-400">GitHub URL (Optional)</label>
                 <input
-                  type="url"
+                  type="text"
                   name="githubUrl"
                   defaultValue={editMember?.githubUrl || ""}
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-white"
